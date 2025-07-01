@@ -23,6 +23,12 @@
         body {
             background: #000000;
         }
+        .background-overlay-section {
+            position: relative;
+            z-index: 1;
+            background: url('src/assets/background.png') center top 100px no-repeat;
+            background-size: 90% auto;
+        }
         
         .glow {
             filter: drop-shadow(0 0 20px rgba(14, 165, 233, 0.3));
@@ -132,81 +138,78 @@
             </div>
         </div>
     </nav>
-
-    <section class="pt-24 pb-20 px-6">
-        <div class="container mx-auto text-center">
-            <div class="max-w-4xl mx-auto">
-                <h1 class="text-5xl md:text-7xl font-bold mb-6 hero-text leading-tight">
-                    Simulateur
-                    <span class="block">Electronique</span>
-                </h1>
-                
-                <p class="text-xl md:text-2xl text-gray-300 mb-12 leading-relaxed">
-                    Apprenez l'éléctronique facilement dans un moteur de jeu-vidéo et échangez vos projets les plus ambitieux.
-                </p>
-                
-                <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
-                    <button class="tech-border px-8 py-4 rounded-xl text-white font-semibold hover:scale-105 transition-all duration-300 pulse-glow">
-                        Démo
-                    </button>
-                    <button class="tech-border px-8 py-4 rounded-xl text-white font-semibold hover:scale-105 transition-all duration-300 pulse-glow">
-                        Installer la beta
-                    </button>
+    <!-- Début de la zone avec background décoratif -->
+    <div class="background-overlay-section">
+        <section class="pt-24 pb-20 px-6">
+            <div class="container mx-auto text-center">
+                <div class="max-w-4xl mx-auto">
+                    <h1 class="text-5xl md:text-7xl font-bold mb-6 hero-text leading-tight">
+                        Simulateur
+                        <span class="block">Electronique</span>
+                    </h1>
+                    <p class="text-xl md:text-2xl text-gray-300 mb-12 leading-relaxed">
+                        Apprenez l'éléctronique facilement dans un moteur de jeu-vidéo et échangez vos projets les plus ambitieux.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
+                        <button class="tech-border w-56 px-8 py-4 rounded-xl text-white font-semibold hover:scale-105 transition-all duration-300 pulse-glow text-center">
+                            Démo
+                        </button>
+                        <button class="tech-border w-56 px-8 py-4 rounded-xl text-white font-semibold hover:scale-105 transition-all duration-300 pulse-glow text-center">
+                            Installer la beta
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <section class="py-20 px-6">
-        <div class="container mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-5xl font-bold mb-6">
-                    <span class="hero-text">Nos Expertises</span>
-                </h2>
-                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
-                    Pourquoi choisir Emmett pour apprendre l'éléctronique.
-                </p>
-            </div>
-            
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="tech-border p-8 rounded-2xl hover:scale-105 transition-all duration-300 floating">
-                    <div class="w-16 h-16 bg-gradient-to-br from-emmett-blue to-emmett-cyan rounded-xl flex items-center justify-center mb-6 glow">
-                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-                        </svg>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-4 text-emmett-blue">Logiciel portatif</h3>
-                    <p class="text-gray-300 leading-relaxed">
-                        Disponible partout, avigateur, desktop app, Android, iOS ou Linux
+        </section>
+        <section class="py-20 px-6" style="margin-top:70px;">
+            <div class="container mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-6">
+                        <span class="hero-text">Nos Expertises</span>
+                    </h2>
+                    <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                        Pourquoi choisir Emmett pour apprendre l'éléctronique.
                     </p>
                 </div>
-                
-                <div class="tech-border p-8 rounded-2xl hover:scale-105 transition-all duration-300 floating" style="animation-delay: 2s">
-                    <div class="w-16 h-16 bg-gradient-to-br from-emmett-cyan to-emmett-teal rounded-xl flex items-center justify-center mb-6 glow">
-                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-                        </svg>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="tech-border p-8 rounded-2xl hover:scale-105 transition-all duration-300 floating">
+                        <div class="w-16 h-16 bg-gradient-to-br from-emmett-blue to-emmett-cyan rounded-xl flex items-center justify-center mb-6 glow">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4 text-emmett-blue">Logiciel portatif</h3>
+                        <p class="text-gray-300 leading-relaxed">
+                            Disponible partout, avigateur, desktop app, Android, iOS ou Linux
+                        </p>
                     </div>
-                    <h3 class="text-2xl font-bold mb-4 text-emmett-cyan">Formation & Éducation</h3>
-                    <p class="text-gray-300 leading-relaxed">
-                        Tutoriel complet pour initier les débutants et plus avancés à la création de circuit éléctronique
-                    </p>
-                </div>
-
-                <div class="tech-border p-8 rounded-2xl hover:scale-105 transition-all duration-300 floating" style="animation-delay: 4s">
-                    <div class="w-16 h-16 bg-gradient-to-br from-emmett-teal to-emmett-blue rounded-xl flex items-center justify-center mb-6 glow">
-                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path>
-                        </svg>
+                    <div class="tech-border p-8 rounded-2xl hover:scale-105 transition-all duration-300 floating" style="animation-delay: 2s">
+                        <div class="w-16 h-16 bg-gradient-to-br from-emmett-cyan to-emmett-teal rounded-xl flex items-center justify-center mb-6 glow">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4 text-emmett-cyan">Formation & Éducation</h3>
+                        <p class="text-gray-300 leading-relaxed">
+                            Tutoriel complet pour initier les débutants et plus avancés à la création de circuit éléctronique
+                        </p>
                     </div>
-                    <h3 class="text-2xl font-bold mb-4 text-emmett-teal">Intelligence Artificielle</h3>
-                    <p class="text-gray-300 leading-relaxed">
-                        Forum communautaire d'échange de projets de toute envergure
-                    </p>
+                    <div class="tech-border p-8 rounded-2xl hover:scale-105 transition-all duration-300 floating" style="animation-delay: 4s">
+                        <div class="w-16 h-16 bg-gradient-to-br from-emmett-teal to-emmett-blue rounded-xl flex items-center justify-center mb-6 glow">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4 text-emmett-teal">Intelligence Artificielle</h3>
+                        <p class="text-gray-300 leading-relaxed">
+                            Forum communautaire d'échange de projets de toute envergure
+                        </p>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </div>
+    <!-- Fin de la zone avec background décoratif -->
 
     <section class="py-20 px-6">
         <div class="container mx-auto text-center">
