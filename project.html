@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notre Projet - Emmett Electronic Simulator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'emmett-dark': '#000916',
+                        'emmett-blue': '#0ea5e9',
+                        'emmett-cyan': '#06b6d4',
+                        'emmett-teal': '#14b8a6'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background: #000000;
+        }
+        
+        .glow {
+            filter: drop-shadow(0 0 20px rgba(14, 165, 233, 0.3));
+        }
+        
+        .circuit-pattern {
+            background-image: none;
+        }
+        
+        .tech-border {
+            position: relative;
+            background: linear-gradient(135deg, rgba(14, 165, 233, 0.1), rgba(6, 182, 212, 0.1));
+            border: 1px solid rgba(14, 165, 233, 0.3);
+        }
+        
+        .tech-border::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: inherit;
+            padding: 1px;
+            background: linear-gradient(135deg, #0ea5e9, #06b6d4, #14b8a6);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask-composite: exclude;
+            opacity: 0.3;
+        }
+        
+        .nav-item {
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-item::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #0ea5e9, #06b6d4);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+        
+        .nav-item:hover::after {
+            width: 100%;
+        }
+        
+        .nav-item.active::after {
+            width: 100%;
+        }
+        
+        .hero-text {
+            background: linear-gradient(135deg, #ffffff, #0ea5e9, #06b6d4);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% 200%;
+            animation: gradientShift 3s ease-in-out infinite;
+        }
+        
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        .floating {
+            animation: floating 6s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .pulse-glow {
+            animation: pulseGlow 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 20px rgba(14, 165, 233, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(14, 165, 233, 0.6); }
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 12px;
+        }
+
+        .image-showcase {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .image-showcase:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 30px rgba(14, 165, 233, 0.3);
+        }
+    </style>
+</head>
+<body class="min-h-screen text-white circuit-pattern">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 bg-emmett-dark/80 backdrop-blur-md border-b border-emmett-blue/20">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <img src="src/assets/logo.png" alt="Logo Emmett" class="w-10 h-10">
+                    <span class="text-2xl font-bold hero-text">EMMETT</span>
+                </div>
+
+                <div class="hidden md:flex space-x-8">
+                    <a href="index.html" class="nav-item text-white hover:text-emmett-blue font-medium">Accueil</a>
+                    <a href="notre-projet.html" class="nav-item active text-emmett-blue hover:text-emmett-blue font-medium">Notre Projet</a>
+                    <a href="#" class="nav-item text-white hover:text-emmett-blue font-medium">Equipe</a>
+                    <a href="#" class="nav-item text-white hover:text-emmett-blue font-medium">Démo</a>
+                    <a href="#" class="nav-item text-white hover:text-emmett-blue font-medium">Contact</a>
+                </div>
+
+                <button class="md:hidden text-white hover:text-emmett-blue">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-32 pb-20 px-6">
+        <div class="container mx-auto">
+            <div class="max-w-4xl mx-auto text-center mb-16">
+                <h1 class="text-5xl md:text-7xl font-bold mb-6 hero-text leading-tight">
+                    Notre Projet
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-300 leading-relaxed">
+                    Découvrez l'histoire et la vision derrière Emmett, le simulateur électronique révolutionnaire
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 px-6">
+        <div class="container mx-auto">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div>
+                    <h2 class="text-4xl md:text-5xl font-bold mb-8">
+                        <span class="hero-text">Notre Vision</span>
+                    </h2>
+                    <div class="space-y-6 text-lg text-gray-300 leading-relaxed">
+                        <p>
+                            Emmett est né d'une vision simple : démocratiser l'apprentissage de l'électronique en rendant cette discipline accessible à tous, peu importe l'âge ou le niveau d'expérience ou le matériel à diposition.
+                        </p>
+                        <p>
+                            Dans un monde de plus en plus connecté, comprendre les bases de l'électronique devient essentiel. Notre simulateur offre un environnement sûr et intuitif pour expérimenter, apprendre et créer sans les contraintes du matériel physique.
+                        </p>
+                        <p>
+                            Grâce à la puissance du moteur de jeu vidéo "Godot", nous proposons une expérience immersive et interactive qui transforme l'apprentissage théorique en aventure pratique captivante.
+                        </p>
+                    </div>
+                </div>
+                <div class="tech-border p-8 rounded-2xl">
+                    <div class="bg-gradient-to-br from-emmett-blue/20 to-emmett-cyan/20 rounded-xl h-80 flex items-center justify-center">
+                        <div class="text-center">
+                            <p class="text-emmett-blue font-semibold">Image</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Demo Section -->
+    <section class="py-20 px-6">
+        <div class="container mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6">
+                    <span class="hero-text">Découvrez Emmett en Action</span>
+                </h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                    Plongez dans l'univers d'Emmett avec cette démonstration de nos fonctionnalités principales
+                </p>
+            </div>
+            
+            <div class="max-w-4xl mx-auto">
+                <div class="tech-border p-6 rounded-2xl">
+                    <div class="video-container">
+                        <!-- Remplace cette URL par ton lien vidéo YouTube/Vimeo -->
+                        <iframe 
+                            src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+                            title="Démonstration Emmett Simulator"
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Detailed Section -->
+    <section class="py-20 px-6">
+        <div class="container mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6">
+                    <span class="hero-text">Fonctionnalités Avancées</span>
+                </h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                    Un écosystème complet pour l'apprentissage et la création électronique
+                </p>
+            </div>
+
+            <div class="space-y-20">
+                <!-- Feature 1 -->
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <div class="order-2 lg:order-1">
+                        <h3 class="text-3xl font-bold mb-6 text-emmett-blue">Simulation Temps Réel</h3>
+                        <div class="space-y-4 text-lg text-gray-300">
+                            <p>
+                                Notre moteur de simulation avancé calcule en temps réel le comportement de chaque composant électronique. Observez les courants, tensions et signaux évoluer instantanément dans vos circuits.
+                            </p>
+                            <ul class="space-y-2">
+                                <li class="flex items-center space-x-3">
+                                    <svg class="w-5 h-5 text-emmett-blue" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    <span>Calculs physiques précis</span>
+                                </li>
+                                <li class="flex items-center space-x-3">
+                                    <svg class="w-5 h-5 text-emmett-blue" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    <span>Visualisation des grandeurs électriques</span>
+                                </li>
+                                <li class="flex items-center space-x-3">
+                                    <svg class="w-5 h-5 text-emmett-blue" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    <span>Détection automatique des erreurs</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="order-1 lg:order-2">
+                        <div class="tech-border p-6 rounded-2xl image-showcase">
+                            <div class="bg-gradient-to-br from-emmett-blue/20 to-emmett-cyan/20 rounded-xl h-64 flex items-center justify-center">
+                                <p class="text-emmett-blue font-semibold">Image : Simulation temps réel</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <div class="tech-border p-6 rounded-2xl image-showcase">
+                            <div class="bg-gradient-to-br from-emmett-cyan/20 to-emmett-teal/20 rounded-xl h-64 flex items-center justify-center">
+                                <p class="text-emmett-cyan font-semibold">Image : Interface utilisateur</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-3xl font-bold mb-6 text-emmett-cyan">Interface Intuitive</h3>
+                        <div class="space-y-4 text-lg text-gray-300">
+                            <p>
+                                Conçue pour les utilisateurs de tous niveaux, notre interface combine simplicité d'utilisation et fonctionnalités avancées. Glissez-déposez vos composants et connectez-les en quelques clics.
+                            </p>
+                            <ul class="space-y-2">
+                                <li class="flex items-center space-x-3">
+                                    <svg class="w-5 h-5 text-emmett-cyan" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    <span>Glisser-déposer intuitif</span>
+                                </li>
+                                <li class="flex items-center space-x-3">
+                                    <svg class="w-5 h-5 text-emmett-cyan" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    <span>Bibliothèque de composants étendue</span>
+                                </li>
+                                <li class="flex items-center space-x-3">
+                                    <svg class="w-5 h-5 text-emmett-cyan" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    <span>Changement de langue disponible</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <div class="order-2 lg:order-1">
+                        <h3 class="text-3xl font-bold mb-6 text-emmett-teal">Communauté & Partage</h3>
+                        <div class="space-y-4 text-lg text-gray-300">
+                            <p>
+                                Rejoignez une communauté active de makers, étudiants et professionnels. Partagez vos créations, découvrez les projets d'autres utilisateurs et collaborez sur des défis techniques.
+                            </p>
+                            <ul class="space-y-2">
+                                <li class="flex items-center space-x-3">
+                                    <svg class="w-5 h-5 text-emmett-teal" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    <span>Forum communautaire</span>
+                                </li>
+                                <li class="flex items-center space-x-3">
+                                    <svg class="w-5 h-5 text-emmett-teal" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    <span>Galerie de projets publics</span>
+                                </li>
+                                <li class="flex items-center space-x-3">
+                                    <svg class="w-5 h-5 text-emmett-teal" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    <span>Export de projets</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="order-1 lg:order-2">
+                        <div class="tech-border p-6 rounded-2xl image-showcase">
+                            <div class="bg-gradient-to-br from-emmett-teal/20 to-emmett-blue/20 rounded-xl h-64 flex items-center justify-center">
+                                <p class="text-emmett-teal font-semibold">Image : Communauté</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Specs -->
+    <section class="py-20 px-6">
+        <div class="container mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6">
+                    <span class="hero-text">Spécifications Techniques</span>
+                </h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                    Une architecture moderne pour des performances optimales sur toutes les plateformes
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="tech-border p-6 rounded-2xl text-center">
+                    <div class="w-16 h-16 bg-gradient-to-br from-emmett-blue to-emmett-cyan rounded-xl flex items-center justify-center mb-4 mx-auto">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-emmett-blue">Multi-plateforme</h3>
+                    <p class="text-gray-300 text-sm">Windows, macOS, Linux, Web, iOS, Android</p>
+                </div>
+
+                <div class="tech-border p-6 rounded-2xl text-center">
+                    <div class="w-16 h-16 bg-gradient-to-br from-emmett-cyan to-emmett-teal rounded-xl flex items-center justify-center mb-4 mx-auto">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-emmett-cyan">Haute Performance</h3>
+                    <p class="text-gray-300 text-sm">Moteur optimisé 60+ FPS, calculs GPU</p>
+                </div>
+
+                <div class="tech-border p-6 rounded-2xl text-center">
+                    <div class="w-16 h-16 bg-gradient-to-br from-emmett-teal to-emmett-blue rounded-xl flex items-center justify-center mb-4 mx-auto">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-emmett-teal">Sécurisé</h3>
+                    <p class="text-gray-300 text-sm">Pas de données sensibles stockées chez nous</p>
+                </div>
+
+                <div class="tech-border p-6 rounded-2xl text-center">
+                    <div class="w-16 h-16 bg-gradient-to-br from-emmett-blue to-emmett-teal rounded-xl flex items-center justify-center mb-4 mx-auto">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-emmett-blue">Évolutif</h3>
+                    <p class="text-gray-300 text-sm">Architecture modulaire</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="py-20 px-6">
+        <div class="container mx-auto text-center">
+            <div class="tech-border p-12 rounded-3xl max-w-4xl mx-auto">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6 hero-text">
+                    Rejoignez l'Aventure
+                </h2>
+                <p class="text-xl mb-8 leading-relaxed" style="color: #09AFDC;">
+                    Soyez parmi les premiers à découvrir le futur de l'apprentissage électronique
+                </p>
+                <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
+                    <button class="tech-border px-10 py-5 rounded-xl text-white font-semibold text-lg hover:scale-105 transition-all duration-300 pulse-glow">
+                        Tester la Démo
+                    </button>
+                    <button class="tech-border px-10 py-5 rounded-xl text-white font-semibold text-lg hover:scale-105 transition-all duration-300 pulse-glow">
+                        Nous Contacter
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 px-6 border-t border-emmett-blue/20">
+        <div class="container mx-auto text-center">
+            <div class="flex items-center justify-center space-x-3 mb-6">
+                <img src="src/assets/logo.png" alt="Logo Emmett" class="w-8 h-8">
+                <span class="text-xl font-bold hero-text">EMMETT</span>
+            </div>
+            <p class="text-gray-400">
+                © 2025 Emmett. L'avenir de l'apprentissage électronique.
+            </p>
+        </div>
+    </div>
+</body>
+</html>
